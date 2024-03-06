@@ -712,7 +712,8 @@ require('lazy').setup({
         markdown = { 'prettier' },
         graphql = { 'prettier' },
         lua = { 'stylua' },
-        rust = { 'prettier' },
+        --rust = { 'prettier' },
+        rust = { 'rustfmt' },
       },
     },
   },
@@ -817,6 +818,7 @@ require('lazy').setup({
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'path' },
+          { name = 'tsserver' },
         },
       }
     end,
