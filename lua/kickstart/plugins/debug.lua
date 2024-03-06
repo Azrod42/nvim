@@ -29,6 +29,7 @@ return {
     -- Installs the debug adapters for you
     'williamboman/mason.nvim',
     'jay-babu/mason-nvim-dap.nvim',
+<<<<<<< HEAD
     'microsoft/vscode-js-debug',
 
     -- Add your own debuggers here
@@ -40,6 +41,13 @@ return {
     -- After install, build it and rename the dist directory to out
     build = 'npm install --legacy-peer-deps --no-save && npx gulp vsDebugServerBundle && rm -rf out && mv dist out',
     version = '1.*',
+=======
+    -- 'microsoft/vscode-js-debug',
+
+    -- Add your own debuggers here
+    'leoluz/nvim-dap-go',
+    -- 'mxsdev/nvim-dap-vscode-js',
+>>>>>>> 3a53db9 (feat: add more mappings)
   },
   config = function()
     local dap = require 'dap'
@@ -157,6 +165,7 @@ return {
     -- Install golang specific config
     require('dap-go').setup()
     -- require('nvim-dap-vscode-js').setup()
+<<<<<<< HEAD
     require('dap-vscode-js').setup {
       -- Path of node executable. Defaults to $NODE_PATH, and then "node"
       -- node_path = "node",
@@ -186,5 +195,7 @@ return {
       -- Logging level for output to console. Set to false to disable console output.
       -- log_console_level = vim.log.levels.ERROR,
     }
+=======
+>>>>>>> 3a53db9 (feat: add more mappings)
   end,
 }
