@@ -1,5 +1,6 @@
 --[[
 
+
 alias nvi='NVIM_APPNAME="kickstart-tsorabel" nvim'
 
 =====================================================================
@@ -869,7 +870,7 @@ require('lazy').setup({
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
   -- require 'kickstart.plugins.debug',
-  -- require 'kickstart.plugins.indent_line',
+  require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
   -- require 'kickstart.plugins.neo-tree',
@@ -880,7 +881,7 @@ require('lazy').setup({
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
-  -- { import = 'custom.plugins' },
+  { import = 'custom.plugins' },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
@@ -905,7 +906,6 @@ require('lazy').setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
---
 local map = vim.keymap.set
 
 -- Set current wordl
@@ -914,13 +914,9 @@ map({ 'n' }, '<leader>cw', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>
 -- Close buffer
 map({ 'n' }, '<leader>x', '<cmd>bd<CR>', { desc = 'Close buffer' })
 
--- misc mappings
-map('n', 'n', 'nzzzv')
-map('n', 'N', 'Nzzzv')
-
 -- Create new vertical buffer
 map({ 'n' }, '<leader>wb', '<cmd>vs<CR>', { desc = 'New [W]orkspace [B]uffer' })
 
 -- Resize buffer (width)
-map({ 'n' }, '<C-m>', '<cmd>vertical res -5^M<CR>', { desc = 'Buffer - width' })
-map({ 'n' }, '<C-n>', '<cmd>vertical res +5^M<CR>', { desc = 'Buffer + width' })
+-- map({ 'n' }, '<C-m>', '<cmd>vertical res -5^M<CR>', { desc = 'Buffer - width' })
+map({ 'n' }, '<C-m>', '<cmd>vertical res +5^M<CR>', { desc = 'Buffer + width' })
