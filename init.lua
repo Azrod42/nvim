@@ -968,10 +968,6 @@ map({ 'n' }, '<leader>cw', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>
 -- Close buffer
 map({ 'n' }, '<leader>x', '<cmd>bd<CR>', { desc = 'Close buffer' })
 
--- misc mappings
-map('n', 'n', 'nzzzv')
-map('n', 'N', 'Nzzzv')
-
 -- Create new vertical buffer
 map({ 'n' }, '<leader>wb', '<cmd>vs<CR>', { desc = 'New [W]orkspace [B]uffer' })
 
