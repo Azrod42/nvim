@@ -6,7 +6,14 @@ return {
     config = function()
       local lint = require 'lint'
       lint.linters_by_ft = {
-        markdown = { 'markdownlint' },
+        -- markdown = { 'markdownlint' },
+        typescript = { 'eslint_d' },
+        javascript = { 'eslint_d' },
+        typescriptreact = { 'eslint_d' },
+        javascriptreact = { 'eslint_d' },
+        -- dockerfile = { 'hadolint' },
+        -- json = { 'jsonlint' },
+        -- text = { 'vale' },
       }
 
       -- To allow other plugins to add linters to require('lint').linters_by_ft,
