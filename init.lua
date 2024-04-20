@@ -983,3 +983,6 @@ map({ 'v' }, '<leader>s', ':CarbonNow<CR>', { desc = '[S]creenshoot with carbon 
 
 map({ 'n' }, '<C-m>', '<cmd>vertical res -5^M<CR>', { desc = 'Buffer - width' })
 map({ 'n' }, '<C-n>', '<cmd>vertical res +5^M<CR>', { desc = 'Buffer + width' })
+
+map({ 'n' }, '66', '<cmd>cnext<CR>', { desc = 'Quicklist next' })
+map({ 'n' }, '77', '<cmd>cprevious<CR>', { desc = 'Quicklist previous' })
