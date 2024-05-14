@@ -888,6 +888,7 @@ require('lazy').setup({
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'path' },
+          { name = 'vim-dadbod-completion' },
         },
       }
     end,
@@ -1039,8 +1040,15 @@ map({ 'n' }, '<leader>wb', '<cmd>vs<CR>', { desc = 'New [W]orkspace [B]uffer' })
 --Screenshot with carbon now
 map({ 'v' }, '<leader>s', ':CarbonNow<CR>', { desc = '[S]creenshoot with carbon now' })
 
-map({ 'n' }, '<C-m>', '<cmd>vertical res -5^M<CR>', { desc = 'Buffer - width' })
+map({ 'n' }, '<C-d>', '<cmd>vertical res +5^M<CR>', { desc = 'Buffer - width' })
+map({ 'n' }, '<C-a>', '<cmd>vertical res -5^M<CR>', { desc = 'Buffer - width' })
+map({ 'n' }, '<C-w>', '<cmd>res +3<CR>', { desc = 'Buffer - width' })
+map({ 'n' }, '<C-s>', '<cmd>res -3<CR>', { desc = 'Buffer - width' })
 -- map({ 'n' }, '<C-n>', '<cmd>vertical res +5^M<CR>', { desc = 'Buffer + width' })
 
 map({ 'n' }, '66', '<cmd>cnext<CR>', { desc = 'Quicklist next' })
 map({ 'n' }, '77', '<cmd>cprevious<CR>', { desc = 'Quicklist previous' })
+
+-- DB UI
+map({ 'n' }, '<leader>o', ':DBUI<CR>', { desc = '[O]pen [D]atabase' })
+vim.o.foldenable = false

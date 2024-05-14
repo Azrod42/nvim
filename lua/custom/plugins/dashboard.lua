@@ -53,6 +53,16 @@ return {
             key_format = ' [%s]', -- `%s` will be substituted with value of `key`
             action = ':Telescope git_commits',
           },
+          {
+            icon = '󰊳 ',
+            icon_hl = 'group',
+            desc = 'New buffer',
+            desc_hl = 'group',
+            key = 'b',
+            key_hl = 'group',
+            key_format = ' [%s]', -- `%s` will be substituted with value of `key`
+            action = ':enew',
+          },
         },
         shortcut = {
           { desc = '󰊳 Update', group = '@property', action = 'Lazy update', key = 'u' },
