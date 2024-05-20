@@ -13,31 +13,6 @@ return {
     'rcarriga/nvim-notify',
   },
   config = function()
-    require('notify').setup {
-      background_colour = 'NotifyBackground',
-      fps = 80,
-      icons = {
-        DEBUG = '',
-        ERROR = '',
-        INFO = '',
-        TRACE = '✎',
-        WARN = '',
-      },
-      level = 2,
-      minimum_width = 30,
-      render = 'default',
-      stages = 'fade_in_slide_out',
-      time_formats = {
-        notification = '%T',
-        notification_history = '%FT%T',
-      },
-      timeout = 2500,
-      top_down = false,
-      max_width = 150,
-      max_height = 250,
-      on_open = function() end,
-      on_close = function() end,
-    }
     require('noice').setup {
       lsp = {
         -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
@@ -91,6 +66,31 @@ return {
           },
         },
       },
+    }
+    require('notify').setup {
+      background_colour = 'NotifyBackground',
+      fps = 80,
+      icons = {
+        DEBUG = '',
+        ERROR = '',
+        INFO = '',
+        TRACE = '✎',
+        WARN = '',
+      },
+      level = 2,
+      minimum_width = 30,
+      render = 'default',
+      stages = 'fade_in_slide_out',
+      time_formats = {
+        notification = '%T',
+        notification_history = '%FT%T',
+      },
+      timeout = 2500,
+      top_down = false,
+      max_width = 150,
+      max_height = 250,
+      on_open = function() end,
+      on_close = function() end,
     }
   end,
 }

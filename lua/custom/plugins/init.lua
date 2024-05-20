@@ -6,32 +6,12 @@ return {
   -- multi line
   { 'mg979/vim-visual-multi' },
 
+  -- autotag (){}html ...
   {
     'windwp/nvim-ts-autotag',
     ft = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'html', 'markdown' },
     config = function()
       require('nvim-ts-autotag').setup()
-    end,
-  },
-  {
-    'tpope/vim-dadbod',
-    'kristijanhusak/vim-dadbod-completion',
-  },
-  {
-    'kristijanhusak/vim-dadbod-ui',
-    dependencies = {
-      { 'tpope/vim-dadbod', lazy = true },
-      { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
-    },
-    cmd = {
-      'DBUI',
-      'DBUIToggle',
-      'DBUIAddConnection',
-      'DBUIFindBuffer',
-    },
-    init = function()
-      -- Your DBUI configuration
-      vim.g.db_ui_use_nerd_fonts = 1
     end,
   },
 
