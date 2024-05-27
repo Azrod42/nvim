@@ -5,9 +5,9 @@ return {
     leap.add_default_mappings()
     leap.opts.case_sensitive = true
 
-    vim.keymap.set({ 'n', 'x', 'o', 'v' }, 't', '<Plug>(leap-forward)')
-    vim.keymap.set({ 'n', 'x', 'o', 'v' }, 'T', '<Plug>(leap-backward)')
-    vim.keymap.set({ 'n', 'x', 'o', 'v' }, 'ts', '<Plug>(leap-from-window)')
+    vim.keymap.set({ 'n', 'x', 'o', 'v' }, 'm', '<Plug>(leap-forward)')
+    vim.keymap.set({ 'n', 'x', 'o', 'v' }, 'M', '<Plug>(leap-backward)')
+    vim.keymap.set({ 'n', 'x', 'o', 'v' }, 'ms', '<Plug>(leap-from-window)')
 
     vim.api.nvim_set_hl(0, 'LeapBackdrop', { link = 'Comment' }) -- or some grey
     vim.api.nvim_set_hl(0, 'LeapMatch', {
