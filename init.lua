@@ -676,7 +676,7 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        -- clangd = {},
+        clangd = {},
         -- gopls = {},
         -- pyright = {},
         rust_analyzer = {},
@@ -1067,3 +1067,10 @@ map({ 'n' }, '77', '<cmd>cprevious<CR>', { desc = 'Quicklist previous' })
 -- DB UI
 map({ 'n' }, '<leader>o', ':DBUI<CR>', { desc = '[O]pen [D]atabase' })
 vim.o.foldenable = false
+
+local nvim_lsp = require 'lspconfig'
+
+nvim_lsp.clangd.setup {
+  cmd = { 'clangd' },
+  root_dir = nvim_lsp.util.root_pattern('.clangd', 'compile_commands.json', 'compile_flags.txt', '.git'),
+}

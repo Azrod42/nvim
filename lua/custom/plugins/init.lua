@@ -6,6 +6,14 @@ return {
   -- multi line
   { 'mg979/vim-visual-multi' },
   { 'github/copilot.vim' },
+  {
+    'sindrets/diffview.nvim',
+    config = function()
+      vim.keymap.set({ 'n' }, '<leader>dm', '<cmd>DiffviewOpen<CR>', { desc = '[D]iff [M]aster' })
+      vim.keymap.set({ 'n' }, '<leader>dc', '<cmd>DiffviewClose<CR>', { desc = '[D]iff [C]lose' })
+      vim.keymap.set({ 'n' }, '<leader>df', '<cmd>DiffviewFileHistory %<CR>', { desc = '[D]iff [F]ile' })
+    end,
+  },
 
   -- autotag (){}html ...
   {
