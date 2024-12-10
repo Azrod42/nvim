@@ -2,7 +2,7 @@ return {
   'ggandor/leap.nvim',
   config = function()
     local leap = require 'leap'
-    leap.add_default_mappings()
+    -- leap.add_default_mappings()
     leap.opts.case_sensitive = true
 
     vim.keymap.set({ 'n', 'x', 'o', 'v' }, 'm', '<Plug>(leap-forward)')
