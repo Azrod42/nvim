@@ -505,6 +505,10 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sn', function()
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
       end, { desc = '[S]earch [N]eovim files' })
+
+      vim.keymap.set('n', '<leader>so', function()
+        builtin.find_files { cwd = '$HOME/Sync/notes/tsorabelVault/'}
+      end, { desc = '[S]earch [O]bsidian files' })
     end,
   },
 
