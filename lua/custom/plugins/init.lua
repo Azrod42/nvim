@@ -3,6 +3,9 @@
 --
 -- See the kickstart.nvim README for more information
 return {
+  -- waka-time
+  { 'wakatime/vim-wakatime', lazy = false },
+
   -- multi line
   { 'mg979/vim-visual-multi' },
   -- {
