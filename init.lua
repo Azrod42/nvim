@@ -507,7 +507,7 @@ require('lazy').setup({
       end, { desc = '[S]earch [N]eovim files' })
 
       vim.keymap.set('n', '<leader>so', function()
-        builtin.find_files { cwd = '$HOME/Sync/notes/tsorabelVault/'}
+        builtin.find_files { cwd = '$HOME/Sync/notes/tsorabelVault/' }
       end, { desc = '[S]earch [O]bsidian files' })
     end,
   },
@@ -690,7 +690,7 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
-        ts_ls = {},
+        -- ts_ls = {},
         --
 
         lua_ls = {
@@ -980,7 +980,7 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'http' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -1068,13 +1068,15 @@ map({ 'n' }, '<C-s>', '<cmd>res -3<CR>', { desc = 'Buffer - width' })
 map({ 'n' }, '66', '<cmd>cnext<CR>', { desc = 'Quicklist next' })
 map({ 'n' }, '77', '<cmd>cprevious<CR>', { desc = 'Quicklist previous' })
 
--- DB UI
-map({ 'n' }, '<leader>o', ':DBUI<CR>', { desc = '[O]pen [D]atabase' })
-vim.o.foldenable = false
-
 local nvim_lsp = require 'lspconfig'
 
 nvim_lsp.clangd.setup {
   cmd = { 'clangd' },
   root_dir = nvim_lsp.util.root_pattern('.clangd', 'compile_commands.json', 'compile_flags.txt', '.git'),
+}
+
+vim.diagnostic.config {
+  virtual_text = {
+    source = true, -- Affiche la source des diagnostics
+  },
 }
