@@ -695,6 +695,8 @@ require('lazy').setup({
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         -- ts_ls = {},
+
+        gopls = {},
         --
 
         lua_ls = {
@@ -794,6 +796,7 @@ require('lazy').setup({
         markdown = { 'prettier' },
         graphql = { 'prettier' },
         lua = { 'stylua' },
+        go = { 'gofmt' },
         --rust = { 'prettier' },
         rust = { 'rustfmt' },
       },
