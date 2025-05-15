@@ -1087,3 +1087,12 @@ vim.diagnostic.config {
     source = true, -- Affiche la source des diagnostics
   },
 }
+
+--------------
+--- MACROS ---
+--------------
+-- This allow to use ' .. esc .. ' in the macro to replace ^[
+-- Dont forget to rm ~/.local/state/nvim/shada/main.shada
+local esc = vim.api.nvim_replace_termcodes('<esc>', true, true, true)
+
+vim.fn.setreg('6', "yoconsole.log('" .. esc .. "pa'," .. esc .. 'pa);' .. esc .. 'I' .. esc .. '')

@@ -9,13 +9,13 @@ return {
   -- multi line
   { 'mg979/vim-visual-multi' },
 
-  -- {
-  --   'github/copilot.vim',
-  --   config = function()
-  --     vim.keymap.set({ 'n' }, '<leader>cd', '<cmd>Copilot disable<CR>', { desc = '[C]opilot [D]isable' })
-  --     vim.keymap.set({ 'n' }, '<leader>ce', '<cmd>Copilot enable<CR>', { desc = '[C]opilot [E]nable' })
-  --   end,
-  -- },
+  {
+    'github/copilot.vim',
+    config = function()
+      vim.keymap.set({ 'n' }, '<leader>cd', '<cmd>Copilot disable<CR>', { desc = '[C]opilot [D]isable' })
+      vim.keymap.set({ 'n' }, '<leader>ce', '<cmd>Copilot enable<CR>', { desc = '[C]opilot [E]nable' })
+    end,
+  },
 
   -- {
   --   'sindrets/diffview.nvim',
