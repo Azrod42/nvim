@@ -10,7 +10,7 @@ return {
     openai = {
       endpoint = 'https://openrouter.ai/api/v1',
       -- model = 'meta-llama/llama-3.3-70b-instruct',
-      model = 'openai/gpt-4.1-mini',
+      model = 'openai/gpt-4.1-nano',
       timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
       temperature = 0,
       max_completion_tokens = 8192, -- Increase this to include reasoning tokens (for reasoning models)
