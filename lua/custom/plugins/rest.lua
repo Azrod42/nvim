@@ -14,8 +14,6 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
-require('telescope').load_extension 'rest'
-
 -- REST api
 -- need sudo apt install luarocks
 return {
