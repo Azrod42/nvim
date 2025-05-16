@@ -14,6 +14,16 @@ return {
     config = function()
       vim.keymap.set({ 'n' }, '<leader>cd', '<cmd>Copilot disable<CR>', { desc = '[C]opilot [D]isable' })
       vim.keymap.set({ 'n' }, '<leader>ce', '<cmd>Copilot enable<CR>', { desc = '[C]opilot [E]nable' })
+      -- require('copilot').setup {
+      --   suggestion = { enabled = false },
+      --   panel = { enabled = false },
+      -- }
+    end,
+  },
+  {
+    'zbirenbaum/copilot-cmp',
+    config = function()
+      require('copilot_cmp').setup()
     end,
   },
 

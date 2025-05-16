@@ -839,14 +839,57 @@ require('lazy').setup({
       --  into multiple repos for maintenance purposes.
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
+      'onsails/lspkind-nvim',
     },
     config = function()
       -- See `:help cmp`
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
+      local lspkind = require 'lspkind'
+
       luasnip.config.setup {}
 
       cmp.setup {
+        formatting = {
+          fields = { 'kind', 'abbr', 'menu' },
+          mode = 'symbol_text',
+          expandable_indicator = true,
+          format = lspkind.cmp_format {
+            symbol_map = { Copilot = '' },
+            maxwidth = {
+              menu = 50,
+              abbr = 50,
+            },
+            ellipsis_char = '...',
+            show_labelDetails = true,
+            menu = {
+              buffer = '[Buffer]',
+              luasnip = '[LuaSnip]',
+              nvim_lua = '[Lua]',
+              path = '[Path]',
+              emoji = '[Emoji]',
+            },
+          },
+        },
+        sorting = {
+          priority_weight = 2,
+          comparators = {
+            require('copilot_cmp.comparators').prioritize,
+
+            -- Below is the default comparitor list and order for nvim-cmp
+            cmp.config.compare.offset,
+            -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
+            cmp.config.compare.exact,
+            cmp.config.compare.score,
+            cmp.config.compare.recently_used,
+            cmp.config.compare.locality,
+            cmp.config.compare.kind,
+            cmp.config.compare.sort_text,
+            cmp.config.compare.length,
+            cmp.config.compare.order,
+          },
+        },
+
         snippet = {
           expand = function(args)
             luasnip.lsp_expand(args.body)
@@ -907,6 +950,7 @@ require('lazy').setup({
           --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
         },
         sources = {
+          { name = 'copilot', group_index = 2 },
           {
             name = 'lazydev',
             -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
@@ -1089,6 +1133,9 @@ vim.diagnostic.config {
   },
 }
 
+-- Highlight Copilot suggestions
+vim.api.nvim_set_hl(0, 'CmpItemKindCopilot', { fg = '#6CC644' })
+
 --------------
 --- MACROS ---
 --------------
@@ -1096,4 +1143,4 @@ vim.diagnostic.config {
 -- Dont forget to rm ~/.local/state/nvim/shada/main.shada
 local esc = vim.api.nvim_replace_termcodes('<esc>', true, true, true)
 
-vim.fn.setreg('6', "yoconsole.log('" .. esc .. "pa'," .. esc .. 'pa);' .. esc .. 'I' .. esc .. '')
+vim.fn.setreg('p', "yoconsole.log('" .. esc .. "pa'," .. esc .. 'pa);' .. esc .. 'I' .. esc .. '')
