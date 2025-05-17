@@ -6,15 +6,18 @@ return { -- You can easily change to a different colorscheme.
   'folke/tokyonight.nvim',
   priority = 1000, -- Make sure to load this before all the other start plugins.
   lazy = false,
-  init = function()
+  config = function()
+    ---@diagnostic disable-next-line: missing-fields
+    require('tokyonight').setup {
+      styles = {
+        comments = { italic = false }, -- Disable italics in comments
+      },
+    }
     -- Load the colorscheme here.
     -- Like many other themes, this one has different styles, and you could load
     -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
     vim.cmd.colorscheme 'tokyonight-night'
     vim.o.background = 'dark'
     -- vim.cmd[[colorscheme tokyonight]]
-
-    -- You can configure highlights by doing something like:
-    vim.cmd.hi 'Comment gui=none'
   end,
 }

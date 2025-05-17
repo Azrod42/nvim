@@ -83,7 +83,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
   callback = function()
-    vim.highlight.on_yank()
+    vim.hl.on_yank()
   end,
 })
 -- Install `lazy.nvim` plugin manager
@@ -103,7 +103,7 @@ require('lazy').setup({
     hererocks = true,
   },
 
-  'tpope/vim-sleuth',
+  'NMAC427/guess-indent.nvim',
 
   { 'Bilal2453/luvit-meta', lazy = true },
 
@@ -117,8 +117,8 @@ require('lazy').setup({
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- Plugin files
-  { import = 'custom.plugins' },
   { import = 'plugins' },
+  { import = 'custom.plugins' },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
