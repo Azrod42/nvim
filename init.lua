@@ -25,6 +25,11 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
+-- Default indentation: 2 spaces, expand tabs
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
 -- Make line numbers default
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -105,11 +110,6 @@ require('lazy').setup({
 
   'NMAC427/guess-indent.nvim',
 
-  { 'Bilal2453/luvit-meta', lazy = true },
-
-  -- Highlight todo, notes, etc in comments
-  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
-
   -- require 'kickstart.plugins.debug',
   require 'kickstart.plugins.indent_line',
   require 'kickstart.plugins.lint',
@@ -180,3 +180,5 @@ vim.api.nvim_set_hl(0, 'CmpItemKindCopilot', { fg = '#6CC644' })
 -- Dont forget to rm ~/.local/state/nvim/shada/main.shada
 local esc = vim.api.nvim_replace_termcodes('<esc>', true, true, true)
 vim.fn.setreg('p', "yoconsole.log('" .. esc .. "pa'," .. esc .. 'pa);' .. esc .. 'I' .. esc .. '')
+
+-- vim: ts=2 sts=2 sw=2 et
