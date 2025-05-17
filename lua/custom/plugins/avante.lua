@@ -4,9 +4,17 @@ return {
   version = false, -- Never set this value to "*"! Never!
 
   opts = {
-    -- add any opts here
-    -- for example
-    provider = 'openai',
+    mode = 'agentic',
+
+    provider = 'copilot',
+    copilot = {
+      endpoint = 'https://api.githubcopilot.com',
+      model = 'gpt-4.1',
+      allow_insecure = false,
+      timeout = 30000,
+      temperature = 0,
+      max_tokens = 20480,
+    },
     openai = {
       endpoint = 'https://openrouter.ai/api/v1',
       -- model = 'meta-llama/llama-3.3-70b-instruct',
