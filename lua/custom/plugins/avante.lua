@@ -1,5 +1,6 @@
 return {
-  'yetone/avante.nvim',
+  'Azrod42/avante.nvim',
+  -- dir = '~/Documents/avante.nvim',
   event = 'VeryLazy',
   version = false, -- Never set this value to "*"! Never!
 
@@ -18,10 +19,11 @@ return {
     openai = {
       endpoint = 'https://openrouter.ai/api/v1',
       -- model = 'meta-llama/llama-3.3-70b-instruct',
+      -- model = 'mistralai/mistral-medium-3',
       model = 'openai/gpt-4.1-nano',
-      timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
+      timeout = 30000, -- timeout in milliseconds, increase this for reasoning models
       temperature = 0,
-      max_completion_tokens = 8192, -- Increase this to include reasoning tokens (for reasoning models)
+      max_completion_tokens = 8192, -- increase this to include reasoning tokens (for reasoning models)
       --reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
     },
     disabled_tools = {
@@ -35,6 +37,28 @@ return {
       'rename_dir',
       'delete_dir',
       'bash',
+    },
+    model_override = {
+      {
+        name = 'gpt-4.1-mini',
+        provider_name = 'openai',
+        model = 'openai/gpt-4.1-mini',
+      },
+      {
+        name = 'gpt-4.1-nano',
+        provider_name = 'openai',
+        model = 'openai/gpt-4.1-mini',
+      },
+      {
+        name = 'gpt-4.1',
+        provider_name = 'openai',
+        model = 'openai/gpt-4.1-mini',
+      },
+      {
+        name = 'Mistral 3',
+        provider_name = 'openai',
+        model = 'mistralai/mistral-medium-3',
+      },
     },
 
     -- other config

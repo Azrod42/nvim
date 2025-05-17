@@ -20,7 +20,21 @@ return {
       vim.keymap.set({ 'n' }, '<leader>ce', '<cmd>Copilot enable<CR>', { desc = '[C]opilot [E]nable' })
     end,
   },
-
+  {
+    'folke/lazydev.nvim',
+    ft = 'lua',
+    cmd = 'LazyDev',
+    opts = {
+      dependencies = {
+        -- Manage libuv types with lazy. Plugin will never be loaded
+        { 'Bilal2453/luvit-meta', lazy = true },
+      },
+      library = {
+        { path = '~/Documents/avante.nvim/lua', words = { 'avante' } },
+        { path = 'luvit-meta/library', words = { 'vim%.uv' } },
+      },
+    },
+  },
   -- {
   --   'zbirenbaum/copilot-cmp',
   --   config = function()
