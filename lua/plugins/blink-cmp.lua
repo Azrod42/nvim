@@ -6,6 +6,9 @@ return { -- Autocompletion
     -- Snippet Engine
     {
       'giuxtaposition/blink-cmp-copilot',
+      'MahanRahmati/blink-nerdfont.nvim',
+      'moyiz/blink-emoji.nvim',
+      'rafamadriz/friendly-snippets',
     },
     {
       'L3MON4D3/LuaSnip',
@@ -88,6 +91,7 @@ return { -- Autocompletion
     appearance = {
       -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
       -- Adjusts spacing to ensure icons are aligned
+      use_nvim_cmp_as_default = true,
       nerd_font_variant = 'mono',
       kind_icons = {
         Copilot = '',
@@ -127,14 +131,71 @@ return { -- Autocompletion
     completion = {
       -- By default, you may press `<c-space>` to show the documentation.
       -- Optionally, set `auto_show = true` to show the documentation after a delay.
-      documentation = { auto_show = false, auto_show_delay_ms = 500 },
+      documentation = { auto_show = false, auto_show_delay_ms = 10 },
+      ghost_text = { enabled = true },
+      list = {
+        selection = {
+          preselect = false,
+        },
+      },
+      menu = {
+        draw = {
+          columns = {
+            { 'kind_icon', 'label', 'label_description', gap = 1 },
+            { 'kind', 'source_name', gap = 1 },
+          },
+          components = {
+            label_description = {
+              width = { max = 50 },
+            },
+            source_name = {
+              text = function(ctx)
+                return '[' .. ctx.source_name .. ']'
+              end,
+            },
+          },
+        },
+      },
     },
 
     sources = {
-      default = { 'lsp', 'path', 'snippets', 'lazydev' },
+      default = { 'lsp', 'path', 'snippets', 'lazydev', 'buffer', 'nerdfont', 'emoji', 'copilot' },
       providers = {
-        lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
+        copilot = {
+          name = 'copilot',
+          module = 'blink-cmp-copilot',
+          score_offset = 100,
+          async = true,
+        },
+        snippets = {
+          score_offset = 30,
+        },
+        lazydev = {
+          name = 'LazyDev',
+          module = 'lazydev.integrations.blink',
+          score_offset = 50,
+        },
+        nerdfont = {
+          module = 'blink-nerdfont',
+          name = 'Nerd Fonts',
+          -- score_offset = 15,
+          opts = { insert = true },
+        },
+        emoji = {
+          module = 'blink-emoji',
+          name = 'Emoji',
+          -- score_offset = 15,
+          opts = { insert = true },
+          should_show_items = function()
+            return vim.tbl_contains({ 'gitcommit', 'markdown' }, vim.o.filetype)
+          end,
+        },
       },
+      transform_items = function(_, items)
+        return vim.tbl_filter(function(item)
+          return not (item.kind == require('blink.cmp.types').CompletionItemKind.Snippet and item.source_name == 'LSP')
+        end, items)
+      end,
     },
 
     snippets = { preset = 'luasnip' },
