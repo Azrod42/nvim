@@ -1,30 +1,23 @@
 return {
-  'Azrod42/avante.nvim',
+  'yetone/avante.nvim',
   -- dir = '~/Documents/avante.nvim',
   event = 'VeryLazy',
   version = false, -- Never set this value to "*"! Never!
 
   opts = {
     mode = 'agentic',
-
     provider = 'copilot',
-    copilot = {
-      endpoint = 'https://api.githubcopilot.com',
-      model = 'gpt-4.1',
-      allow_insecure = false,
-      timeout = 30000,
-      temperature = 0,
-      max_tokens = 20480,
-    },
-    openai = {
-      endpoint = 'https://openrouter.ai/api/v1',
-      -- model = 'meta-llama/llama-3.3-70b-instruct',
-      -- model = 'mistralai/mistral-medium-3',
-      model = 'openai/gpt-4.1-nano',
-      timeout = 30000, -- timeout in milliseconds, increase this for reasoning models
-      temperature = 0,
-      max_completion_tokens = 8192, -- increase this to include reasoning tokens (for reasoning models)
-      --reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
+    providers = {
+      copilot = {
+        endpoint = 'https://api.githubcopilot.com',
+        model = 'gpt-4.1',
+        allow_insecure = false,
+        timeout = 30000,
+        extra_request_body = {
+          temperature = 0,
+          max_tokens = 20480,
+        },
+      },
     },
     disabled_tools = {
       'list_files',
@@ -46,11 +39,6 @@ return {
       },
       {
         name = 'gpt-4.1-nano',
-        provider_name = 'openai',
-        model = 'openai/gpt-4.1-mini',
-      },
-      {
-        name = 'gpt-4.1',
         provider_name = 'openai',
         model = 'openai/gpt-4.1-mini',
       },

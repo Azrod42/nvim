@@ -29,7 +29,7 @@ return {
       ui = {
         split_direction = 'horizontal',
         win_opts = {
-          height = 40,
+          height = 25,
         },
       },
     },
