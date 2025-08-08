@@ -95,11 +95,18 @@ return {
         map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
         local function client_supports_method(client, method, bufnr)
-          if vim.fn.has 'nvim-0.11' == 1 then
+          -- Defensive guard to avoid errors if called with wrong args
+          if type(client) ~= 'table' or not client then
+            return false
+          end
+          if vim.fn.has 'nvim-0.11' == 1 and type(client.supports_method) == 'function' then
+            -- Neovim 0.11+: supports_method is a method; signature: (method, bufnr)
             return client:supports_method(method, bufnr)
-          else
+          elseif type(client.supports_method) == 'function' then
+            -- Neovim <= 0.10: supports_method is a function field; signature: (method, { bufnr = bufnr })
             return client.supports_method(method, { bufnr = bufnr })
           end
+          return false
         end
 
         -- The following two autocommands are used to highlight references of the
@@ -135,7 +142,7 @@ return {
         -- code, if the language server you are using supports them
         --
         -- This may be unwanted, since they displace some of your code
-        if client and client_supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+        if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
           map('<leader>th', function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
           end, '[T]oggle Inlay [H]ints')
