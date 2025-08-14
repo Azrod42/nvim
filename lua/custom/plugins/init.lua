@@ -10,6 +10,17 @@ return {
   { 'mg979/vim-visual-multi' },
 
   {
+    'vuki656/package-info.nvim',
+    ft = 'json',
+    dependencies = { 'MunifTanjim/nui.nvim' },
+    config = function()
+      require('package-info').setup {
+        hide_up_to_date = true,
+      }
+    end,
+  },
+
+  {
     'zbirenbaum/copilot.lua',
     config = function()
       require('copilot').setup {
