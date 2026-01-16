@@ -160,11 +160,29 @@ map({ 'n' }, '<C-s>', '<cmd>res -3<CR>', { desc = 'Buffer - width' })
 map({ 'n' }, '66', '<cmd>cnext<CR>', { desc = 'Quicklist next' })
 map({ 'n' }, '77', '<cmd>cprevious<CR>', { desc = 'Quicklist previous' })
 
-local nvim_lsp = require 'lspconfig'
-nvim_lsp.clangd.setup {
-  cmd = { 'clangd' },
-  root_dir = nvim_lsp.util.root_pattern('.clangd', 'compile_commands.json', 'compile_flags.txt', '.git'),
-}
+-- Setup clangd using Neovim 0.11+ LSP API (vim.lsp.start)
+local function clangd_root()
+  -- Find project root using common clangd markers
+  local opts = { upward = true, stop = vim.loop.os_homedir() }
+  local root = vim.fs.find({ '.clangd', 'compile_commands.json', 'compile_flags.txt', '.git' }, opts)[1]
+  if root then
+    return vim.fs.dirname(root)
+  end
+  return vim.loop.cwd()
+end
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'c', 'cpp', 'objc', 'objcpp' },
+  callback = function()
+    -- Start clangd for the current buffer if not already started
+    vim.lsp.start {
+      name = 'clangd',
+      cmd = { 'clangd' },
+      root_dir = clangd_root(),
+    }
+  end,
+})
+
 vim.diagnostic.config {
   virtual_text = {
     source = true,
