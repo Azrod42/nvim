@@ -7,7 +7,9 @@ return {
   { 'wakatime/vim-wakatime', lazy = false },
 
   -- multi line
-  { 'mg979/vim-visual-multi' },
+  { 'mg979/vim-visual-multi', lazy = false },
+
+  { 'ziglang/zig.vim' },
 
   {
     'vuki656/package-info.nvim',
