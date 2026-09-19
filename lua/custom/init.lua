@@ -25,6 +25,7 @@ return {
   {
     'zbirenbaum/copilot.lua',
     config = function()
+      -- setup enables Copilot once its asynchronous server initialization completes.
       require('copilot').setup {
         panel = {
           enabled = true,
@@ -75,9 +76,6 @@ return {
           return git_dir and vim.fs.dirname(git_dir) or (vim.uv or vim.loop).cwd()
         end,
       }
-
-      require('copilot.command').enable()
-      require('copilot.client').ensure_client_started()
     end,
   },
 
