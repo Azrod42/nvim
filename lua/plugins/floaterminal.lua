@@ -1,5 +1,3 @@
-vim.keymap.set('t', '<esc><esc>', '<c-\\><c-n>')
-
 local state = {
   floating = {
     buf = -1,
@@ -55,7 +53,6 @@ end
 -- Create a floating window with default dimensions
 vim.api.nvim_create_user_command('Floaterminal', toggle_terminal, {})
 
--- Map 'tt' in normal mode to call :Floaterminal
-vim.keymap.set('n', 'tt', ':Floaterminal<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>tt', '<cmd>Floaterminal<CR>', { desc = '[T]oggle floating [T]erminal' })
 
 return {}

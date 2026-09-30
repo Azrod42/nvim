@@ -1,13 +1,6 @@
 local M = {}
 
 local ignored_filetypes = {
-  Avante = true,
-  AvanteConfirm = true,
-  AvanteInput = true,
-  AvantePromptInput = true,
-  AvanteSelectedCode = true,
-  AvanteSelectedFiles = true,
-  AvanteTodos = true,
   spectre_panel = true,
 }
 
