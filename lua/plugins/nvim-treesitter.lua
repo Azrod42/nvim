@@ -1,5 +1,7 @@
 return { -- Highlight, edit, and navigate code
   'nvim-treesitter/nvim-treesitter',
+  -- The default `main` branch is a rewrite without `nvim-treesitter.configs`; stay on `master` for this setup.
+  branch = 'master',
   build = ':TSUpdate',
   main = 'nvim-treesitter.configs', -- Sets main module to use for opts
   -- [[ Configure Treesitter ]] See `:help nvim-treesitter`

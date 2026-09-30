@@ -86,11 +86,7 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 -- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
 -- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
 -- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
--- Keybinds to make split navigation easier.
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+-- Split navigation (<C-h/j/k/l>) is handled by vim-tmux-navigator (lua/custom/tmux-navigator.lua)
 -- Highlight when yanking (copying) text
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
@@ -100,17 +96,13 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
-if vim.filetype and vim.filetype.apply then
-  vim.filetype.apply {
-    filename = {
-      ['go.work'] = 'gowork',
-    },
-    extension = {
-      gowork = 'gowork',
-      gotmpl = 'gotmpl',
-    },
-  }
-end
+-- Filetypes Neovim doesn't detect on its own (go.work and *.http are built in)
+vim.filetype.add {
+  extension = {
+    gotmpl = 'gotmpl',
+  },
+}
+
 -- Install `lazy.nvim` plugin manager
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -128,7 +120,7 @@ require('lazy').setup({
     hererocks = true,
   },
 
-  'NMAC427/guess-indent.nvim',
+  { 'NMAC427/guess-indent.nvim', opts = {} },
 
   -- require 'kickstart.plugins.debug',
   require 'kickstart.plugins.indent_line',
@@ -164,60 +156,32 @@ require('lazy').setup({
 local map = vim.keymap.set
 local buffer = require 'utils.buffer'
 
--- Set current wordl
-map({ 'n' }, '<leader>cw', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>', { desc = '[C]ut [W]orld' })
+-- Substitute the word under the cursor
+map({ 'n' }, '<leader>cw', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>', { desc = '[C]hange [W]ord in file' })
 -- Close buffer
 map({ 'n' }, '<leader>x', buffer.close_current_buffer, { desc = 'Close buffer' })
 -- Create new vertical buffer
 map({ 'n' }, '<leader>wb', '<cmd>vs<CR>', { desc = 'New [W]orkspace [B]uffer' })
 --Screenshot with carbon now
-map({ 'v' }, '<leader>s', ':CarbonNow<CR>', { desc = '[S]creenshoot with carbon now' })
--- Resize buffer
-map({ 'n' }, '<C-d>', '<cmd>vertical res +5^M<CR>', { desc = 'Buffer - width' })
-map({ 'n' }, '<C-a>', '<cmd>vertical res -5^M<CR>', { desc = 'Buffer - width' })
-map({ 'n' }, '<C-w>', '<cmd>res +3<CR>', { desc = 'Buffer - width' })
-map({ 'n' }, '<C-s>', '<cmd>res -3<CR>', { desc = 'Buffer - width' })
--- Quickfix list switch
-map({ 'n' }, '66', '<cmd>cnext<CR>', { desc = 'Quicklist next' })
-map({ 'n' }, '77', '<cmd>cprevious<CR>', { desc = 'Quicklist previous' })
+map({ 'v' }, '<leader>cs', ':CarbonNow<CR>', { desc = '[C]ode [S]creenshot with carbon now' })
+-- Resize window (Ctrl + arrows, so the built-in <C-w>, <C-d>, <C-a>, <C-s> keep working)
+map({ 'n' }, '<C-Right>', '<cmd>vertical resize +5<CR>', { desc = 'Window width +5' })
+map({ 'n' }, '<C-Left>', '<cmd>vertical resize -5<CR>', { desc = 'Window width -5' })
+map({ 'n' }, '<C-Up>', '<cmd>resize +3<CR>', { desc = 'Window height +3' })
+map({ 'n' }, '<C-Down>', '<cmd>resize -3<CR>', { desc = 'Window height -3' })
+-- Quickfix list: use the built-in ]q / [q (Neovim 0.11+)
 
--- Setup clangd using Neovim 0.11+ LSP API (vim.lsp.start)
-local function clangd_root()
-  -- Find project root using common clangd markers
-  local opts = { upward = true, stop = vim.loop.os_homedir() }
-  local root = vim.fs.find({ '.clangd', 'compile_commands.json', 'compile_flags.txt', '.git' }, opts)[1]
-  if root then
-    return vim.fs.dirname(root)
-  end
-  return vim.loop.cwd()
-end
-
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'c', 'cpp', 'objc', 'objcpp' },
-  callback = function()
-    -- Start clangd for the current buffer if not already started
-    vim.lsp.start {
-      name = 'clangd',
-      cmd = { 'clangd' },
-      root_dir = clangd_root(),
-    }
-  end,
-})
-
-vim.diagnostic.config {
-  virtual_text = {
-    source = true,
-  },
-}
-
--- Highlight Copilot suggestions
-vim.api.nvim_set_hl(0, 'CmpItemKindCopilot', { fg = '#6CC644' })
 --------------
 --- MACROS ---
 --------------
 -- This allow to use ' .. esc .. ' in the macro to replace ^[
--- Dont forget to rm ~/.local/state/nvim/shada/main.shada
-local esc = vim.api.nvim_replace_termcodes('<esc>', true, true, true)
-vim.fn.setreg('p', "yoconsole.log('" .. esc .. "pa'," .. esc .. 'pa);' .. esc .. 'I' .. esc .. '')
+vim.api.nvim_create_autocmd('VimEnter', {
+  desc = 'Set macro registers after ShaDa is loaded so they are not overwritten',
+  group = vim.api.nvim_create_augroup('custom-macros', { clear = true }),
+  callback = function()
+    local esc = vim.api.nvim_replace_termcodes('<esc>', true, true, true)
+    vim.fn.setreg('p', "yoconsole.log('" .. esc .. "pa'," .. esc .. 'pa);' .. esc .. 'I' .. esc .. '')
+  end,
+})
 
 -- vim: ts=2 sts=2 sw=2 et

@@ -1,25 +1,9 @@
-if vim.filetype and vim.filetype.apply then
-  vim.filetype.apply {
-    extension = {
-      http = 'http',
-    },
-  }
-else
-  vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
-    pattern = '*.http',
-    callback = function()
-      vim.bo.filetype = 'http'
-    end,
-  })
-end
-
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'http' },
   callback = function()
-    local opt = vim.opt
-    opt.number = false
-    opt.preserveindent = false
-    opt.relativenumber = false
+    vim.opt_local.number = false
+    vim.opt_local.preserveindent = false
+    vim.opt_local.relativenumber = false
   end,
 })
 
@@ -28,10 +12,12 @@ vim.api.nvim_create_autocmd('FileType', {
 return {
   {
     'mistweaverco/kulala.nvim',
+    -- v6.32.0+ downloads kulala-core and prompts for a paid license token; stay on the last release without it
+    version = '6.31.1',
     ft = 'http',
     keys = {
       { '<leader>r', '', desc = '  Rest' },
-      { '<leader>rr', '<cmd>Rest run<cr>', desc = 'Send the request' },
+      { '<leader>rr', "<cmd>lua require('kulala').run()<cr>", desc = 'Send the request' },
       { '<leader>rs', "<cmd>lua require('kulala').run()<cr>", desc = 'Send the request' },
     },
     opts = {
@@ -46,7 +32,7 @@ return {
 
   {
     'hudclark/grpc-nvim',
-    requires = { 'nvim-lua/plenary.nvim' },
+    dependencies = { 'nvim-lua/plenary.nvim' },
     keys = {
       { '<leader>rg', '<cmd>Grpc<cr>', desc = 'Send grpc the request' },
     },

@@ -54,9 +54,19 @@ return {
       vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost', 'InsertLeave' }, {
         group = lint_augroup,
         callback = function()
-          if vim.bo.modifiable then
-            lint.try_lint()
+          if not vim.bo.modifiable then
+            return
           end
+          -- Only run linters whose executable is installed (e.g. before Mason has installed eslint_d)
+          lint.try_lint(nil, {
+            filter = function(linter)
+              local cmd = linter.cmd
+              if type(cmd) == 'function' then
+                cmd = cmd()
+              end
+              return type(cmd) ~= 'string' or vim.fn.executable(cmd) == 1
+            end,
+          })
         end,
       })
     end,

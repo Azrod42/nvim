@@ -39,8 +39,8 @@ return { -- Useful plugin to show you pending keybinds.
       },
     },
   },
-  config = function() -- This is the function that runs, AFTER loading
-    require('which-key').setup()
+  config = function(_, opts) -- This is the function that runs, AFTER loading
+    require('which-key').setup(opts)
 
     -- Document existing key chains
     require('which-key').add {
@@ -49,9 +49,9 @@ return { -- Useful plugin to show you pending keybinds.
       { '<leader>c_', hidden = true },
       { '<leader>d', group = '[D]ocument' },
       { '<leader>d_', hidden = true },
-      { '<leader>h', group = 'Git [H]unk' },
-      { '<leader>h_', hidden = true },
-      { '<leader>r', group = '[R]ename' },
+      { '<leader>g', group = '[G]it', mode = { 'n', 'v' } },
+      { '<leader>g_', hidden = true },
+      { '<leader>r', group = '[R]ename / [R]est' },
       { '<leader>r_', hidden = true },
       { '<leader>s', group = '[S]earch' },
       { '<leader>s_', hidden = true },
@@ -60,9 +60,5 @@ return { -- Useful plugin to show you pending keybinds.
       { '<leader>w', group = '[W]orkspace' },
       { '<leader>w_', hidden = true },
     }
-    -- visual mode
-    require('which-key').add({
-      { '', desc = '<leader>h', mode = 'v' },
-    }, { mode = 'v' })
   end,
 }

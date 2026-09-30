@@ -24,6 +24,8 @@ return {
 
   {
     'zbirenbaum/copilot.lua',
+    cmd = 'Copilot',
+    event = 'InsertEnter',
     config = function()
       -- setup enables Copilot once its asynchronous server initialization completes.
       require('copilot').setup {
@@ -91,35 +93,13 @@ return {
   --   end,
   -- },
   {
-    'folke/lazydev.nvim',
-    ft = 'lua',
-    cmd = 'LazyDev',
-    opts = {
-      dependencies = {
-        -- Manage libuv types with lazy. Plugin will never be loaded
-        { 'Bilal2453/luvit-meta', lazy = true },
-      },
-      library = {
-        { path = '~/Documents/avante.nvim/lua', words = { 'avante' } },
-        { path = 'luvit-meta/library', words = { 'vim%.uv' } },
-      },
-    },
-  },
-  {
     'NeogitOrg/neogit',
     lazy = true,
     dependencies = {
       'nvim-lua/plenary.nvim', -- required
 
-      -- Only one of these is needed.
-      'sindrets/diffview.nvim', -- optional
-      'esmuellert/codediff.nvim', -- optional
-
-      -- Only one of these is needed.
-      'nvim-telescope/telescope.nvim', -- optional
-      'ibhagwan/fzf-lua', -- optional
-      'nvim-mini/mini.pick', -- optional
-      'folke/snacks.nvim', -- optional
+      'sindrets/diffview.nvim', -- diff integration
+      'nvim-telescope/telescope.nvim', -- picker
     },
     cmd = 'Neogit',
     keys = {
